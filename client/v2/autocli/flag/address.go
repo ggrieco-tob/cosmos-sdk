@@ -32,7 +32,7 @@ func (a validatorAddressStringType) DefaultValue() string {
 type consensusAddressStringType struct{}
 
 func (a consensusAddressStringType) NewValue(ctx context.Context, b *Builder) Value {
-	return &addressValue{addressCodec: b.ValidatorAddressCodec}
+	return &addressValue{addressCodec: nil /* TODO */}
 }
 
 func (a consensusAddressStringType) DefaultValue() string {
