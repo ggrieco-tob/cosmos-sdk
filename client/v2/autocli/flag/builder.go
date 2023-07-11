@@ -41,6 +41,7 @@ func (b *Builder) init() {
 		b.scalarFlagTypes = map[string]Type{}
 		b.scalarFlagTypes["cosmos.AddressString"] = addressStringType{}
 		b.scalarFlagTypes["cosmos.ValidatorAddressString"] = validatorAddressStringType{}
+		b.scalarFlagTypes["cosmos.ConsensusAddressString"] = consensusAddressStringType{}
 	}
 }
 
