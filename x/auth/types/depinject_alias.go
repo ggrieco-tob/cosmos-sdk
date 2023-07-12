@@ -2,5 +2,10 @@ package types
 
 import "cosmossdk.io/core/address"
 
-// ValidatorAddressCodec is an alias for address.Codec for validator addresses.
-type ValidatorAddressCodec address.Codec
+type (
+	// ValidatorAddressCodec is an alias for address.Codec for validator addresses.
+	ValidatorAddressCodec address.Codec
+
+	// ConsensusAddressCodec is an alias for address.Codec for validator consensus addresses.
+	ConsensusAddressCodec address.Codec
+)

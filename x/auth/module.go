@@ -198,25 +198,30 @@ type AddressCodecInputs struct {
 	Config                       *modulev1.Module
 	AddressCodecFactory          func() address.Codec               `optional:"true"`
 	ValidatorAddressCodecFactory func() types.ValidatorAddressCodec `optional:"true"`
+	ConsensusAddressCodecFactory func() types.ConsensusAddressCodec `optional:"true"`
 }
 
 // ProvideAddressCodec provides an address.Codec to the container for any
 // modules that want to do address string <> bytes conversion.
-func ProvideAddressCodec(in AddressCodecInputs) (address.Codec, types.ValidatorAddressCodec) {
-	if in.AddressCodecFactory != nil && in.ValidatorAddressCodecFactory != nil {
-		return in.AddressCodecFactory(), in.ValidatorAddressCodecFactory()
+func ProvideAddressCodec(in AddressCodecInputs) (address.Codec, types.ValidatorAddressCodec, types.ConsensusAddressCodec) {
+	if in.AddressCodecFactory != nil && in.ValidatorAddressCodecFactory != nil && in.ConsensusAddressCodecFactory != nil {
+		return in.AddressCodecFactory(), in.ValidatorAddressCodecFactory(), in.ConsensusAddressCodecFactory()
 	}
 
-	if (in.AddressCodecFactory != nil && in.ValidatorAddressCodecFactory == nil) ||
-		(in.AddressCodecFactory == nil && in.ValidatorAddressCodecFactory != nil) {
-		panic("either both or none of AddressCodecFactory and ValidatorAddressCodecFactory must be provided")
+	// if one of the factories is provided, all of them must be provided
+	if in.AddressCodecFactory == nil || in.ValidatorAddressCodecFactory == nil || in.ConsensusAddressCodecFactory == nil {
+		panic("either both or none of AddressCodecFactory, ValidatorAddressCodecFactory and ConsensusAddressCodecFactory must be provided")
 	}
 
 	if in.Config.Bech32PrefixValidator == "" {
 		in.Config.Bech32PrefixValidator = fmt.Sprintf("%svaloper", in.Config.Bech32Prefix)
 	}
 
-	return authcodec.NewBech32Codec(in.Config.Bech32Prefix), authcodec.NewBech32Codec(in.Config.Bech32PrefixValidator)
+	if in.Config.Bech32PrefixConsensus == "" {
+		in.Config.Bech32PrefixConsensus = fmt.Sprintf("%svalcons", in.Config.Bech32Prefix)
+	}
+
+	return authcodec.NewBech32Codec(in.Config.Bech32Prefix), authcodec.NewBech32Codec(in.Config.Bech32PrefixValidator), authcodec.NewBech32Codec(in.Config.Bech32PrefixConsensus)
 }
 
 type ModuleInputs struct {
