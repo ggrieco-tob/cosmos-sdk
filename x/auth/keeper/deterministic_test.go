@@ -75,6 +75,7 @@ func (suite *DeterministicTestSuite) SetupTest() {
 		maccPerms,
 		authcodec.NewBech32Codec("cosmos"),
 		authcodec.NewBech32Codec("cosmosvaloper"),
+		authcodec.NewBech32Codec("cosmosvalcons"),
 		"cosmos",
 		types.NewModuleAddress("gov").String(),
 	)
@@ -296,6 +297,7 @@ func (suite *DeterministicTestSuite) TestGRPCQueryModuleAccounts() {
 			maccPerms,
 			authcodec.NewBech32Codec("cosmos"),
 			authcodec.NewBech32Codec("cosmosvaloper"),
+			authcodec.NewBech32Codec("cosmosvalcons"),
 			"cosmos",
 			types.NewModuleAddress("gov").String(),
 		)
@@ -344,6 +346,7 @@ func (suite *DeterministicTestSuite) TestGRPCQueryModuleAccountByName() {
 			maccPerms,
 			authcodec.NewBech32Codec("cosmos"),
 			authcodec.NewBech32Codec("cosmosvaloper"),
+			authcodec.NewBech32Codec("cosmosvalcons"),
 			"cosmos",
 			types.NewModuleAddress("gov").String(),
 		)

@@ -121,6 +121,7 @@ func initFixture(tb testing.TB) *fixture {
 		maccPerms,
 		addresscodec.NewBech32Codec(sdk.Bech32MainPrefix),
 		addresscodec.NewBech32Codec(sdk.Bech32PrefixValAddr),
+		addresscodec.NewBech32Codec(sdk.Bech32PrefixConsAddr),
 		sdk.Bech32MainPrefix,
 		authority.String(),
 	)

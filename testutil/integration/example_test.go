@@ -47,6 +47,7 @@ func Example() {
 		map[string][]string{minttypes.ModuleName: {authtypes.Minter}},
 		addresscodec.NewBech32Codec("cosmos"),
 		addresscodec.NewBech32Codec("cosmosvaloper"),
+		addresscodec.NewBech32Codec("cosmosvalcons"),
 		"cosmos",
 		authority,
 	)
@@ -137,6 +138,7 @@ func Example_oneModule() {
 		map[string][]string{minttypes.ModuleName: {authtypes.Minter}},
 		addresscodec.NewBech32Codec("cosmos"),
 		addresscodec.NewBech32Codec("cosmosvaloper"),
+		addresscodec.NewBech32Codec("cosmosvalcons"),
 		"cosmos",
 		authority,
 	)

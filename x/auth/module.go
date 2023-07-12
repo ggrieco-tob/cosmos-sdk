@@ -233,6 +233,7 @@ type ModuleInputs struct {
 
 	AddressCodec            address.Codec
 	ValidatorAddressCodec   types.ValidatorAddressCodec
+	ConsensusAddressCodec   types.ConsensusAddressCodec
 	RandomGenesisAccountsFn types.RandomGenesisAccountsFn `optional:"true"`
 	AccountI                func() sdk.AccountI           `optional:"true"`
 
@@ -267,9 +268,8 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		in.AccountI = types.ProtoBaseAccount
 	}
 
-	k := keeper.NewAccountKeeper(
-		in.Cdc, in.StoreService, in.AccountI,
-		maccPerms, in.AddressCodec, in.ValidatorAddressCodec,
+	k := keeper.NewAccountKeeper(in.Cdc, in.StoreService, in.AccountI, maccPerms,
+		in.AddressCodec, in.ValidatorAddressCodec, in.ConsensusAddressCodec,
 		in.Config.Bech32Prefix, authority.String(),
 	)
 	m := NewAppModule(in.Cdc, k, in.RandomGenesisAccountsFn, in.LegacySubspace)
